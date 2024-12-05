@@ -32,8 +32,8 @@ const TestPage = () => {
 
     // Animation du train
     const interval = setInterval(() => {
-      setTrainProgress((prev) => Math.min(prev + 2, 100));
-    }, 30);
+      setTrainProgress((prev) => Math.min(prev + 1, 30)); // Le train s'étend jusqu'à 50% de la largeur de l'écran
+    }, 20);
 
     return () => clearInterval(interval);
   }, [today]);
@@ -55,9 +55,7 @@ const TestPage = () => {
           width: "100%",
           height: "100%",
           margin: "0 auto",
-          backgroundImage:
-            // fichier public monde.png
-            "url('/monde.png')",
+          backgroundImage: "url('/monde.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           border: "2px solid #ccc",
@@ -93,61 +91,64 @@ const TestPage = () => {
 
         {/* Train animé */}
         {trainProgress > 0 && (
-          <div
-            style={{
-              position: "absolute",
-              top: `${todayDish.coordinates.y}%`,
-              left: `${todayDish.coordinates.x}%`,
-              width: `${Math.min(trainProgress, 100)}vw`,
-              height: "5px",
-              background:
-                "linear-gradient(to right, #f6d365, #fda085, #fbc2eb, #a18cd1)",
-              borderRadius: "3px",
-              boxShadow: "0 0 10px rgba(255, 138, 0, 0.5)",
-              transformOrigin: "left center",
-              transition: "width 0.1s ease-out",
-            }}
-          />
+          <>
+            <div
+              style={{
+                position: "absolute",
+                top: `${todayDish.coordinates.y}%`,
+                left: `${todayDish.coordinates.x}%`,
+                width: `${trainProgress}vw`,
+                height: "5px",
+                background:
+                  "linear-gradient(to right, #f6d365, #fda085, #fbc2eb, #a18cd1)",
+                borderRadius: "3px",
+                boxShadow: "0 0 10px rgba(255, 138, 0, 0.5)",
+                transformOrigin: "left center",
+                transition: "width 0.1s ease-out",
+              }}
+            />
+            {/* Encart au bout du train */}
+            {trainProgress === 30 && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: `${todayDish.coordinates.y}%`,
+                  left: `calc(${todayDish.coordinates.x}% + ${trainProgress}vw)`,
+                  transform: "translate(-50%, -50%)",
+                  width: "300px",
+                  padding: "15px",
+                  backgroundColor: "rgba(255, 255, 255, 0.9)",
+                  borderRadius: "10px",
+                  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                  textAlign: "center",
+                  animation: "fadeIn 0.5s ease-in-out",
+                }}
+              >
+                <img
+                  src={todayDish.image}
+                  alt={todayDish.dish}
+                  style={{
+                    width: "100%",
+                    height: "150px",
+                    borderRadius: "8px",
+                    objectFit: "cover",
+                    marginBottom: "10px",
+                  }}
+                />
+                <h2 style={{ color: "#f77f00", margin: "5px 0" }}>
+                  {todayDish.dish}
+                </h2>
+                <p style={{ fontSize: "12px", margin: "5px 0" }}>
+                  Origine : <strong>{todayDish.country}</strong>
+                </p>
+                <p style={{ fontSize: "12px", color: "#555" }}>
+                  {todayDish.description}
+                </p>
+              </div>
+            )}
+          </>
         )}
       </div>
-
-      {/* Détails une fois le train terminé */}
-      {trainProgress === 100 && (
-        <div
-          style={{
-            position: "relative",
-            marginTop: "20px",
-            textAlign: "center",
-            animation: "fadeIn 1s ease-in-out",
-          }}
-        >
-          <img
-            src={todayDish.image}
-            alt={todayDish.dish}
-            style={{
-              width: "300px",
-              height: "200px",
-              borderRadius: "8px",
-              objectFit: "cover",
-              marginBottom: "20px",
-            }}
-          />
-          <h2 style={{ color: "#f77f00" }}>{todayDish.dish}</h2>
-          <p>
-            Origine : <strong>{todayDish.country}</strong>
-          </p>
-          <p style={{ maxWidth: "600px", margin: "0 auto" }}>
-            {todayDish.description}
-          </p>
-
-          {/* Confettis */}
-          <div className="confetti-container">
-            {Array.from({ length: 50 }).map((_, index) => (
-              <div key={index} className="confetti" />
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* Styles pour animations */}
       <style jsx>{`
@@ -158,43 +159,6 @@ const TestPage = () => {
           to {
             opacity: 1;
           }
-        }
-
-        .confetti-container {
-          position: relative;
-          width: 100%;
-          height: 200px;
-          overflow: hidden;
-          pointer-events: none;
-        }
-
-        .confetti {
-          position: absolute;
-          width: 10px;
-          height: 10px;
-          background: random-color();
-          opacity: 0.8;
-          top: -10px;
-          animation: fall 3s linear infinite;
-        }
-
-        @keyframes fall {
-          0% {
-            transform: translateY(0) rotate(0deg);
-            opacity: 1;
-          }
-          100% {
-            transform: translateY(200vh) rotate(720deg);
-            opacity: 0;
-          }
-        }
-
-        .confetti:nth-child(odd) {
-          background-color: #ff85b3;
-        }
-
-        .confetti:nth-child(even) {
-          background-color: #82b1ff;
         }
       `}</style>
     </div>
