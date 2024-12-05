@@ -1,4 +1,4 @@
-export default function Pages() {
+export default function Chaos() {
   return (
     <div>
       <h1>Pages</h1>
