@@ -194,33 +194,34 @@ const TestPage = () => {
     },
   };
 
-  const [todayDish, setTodayDish] = useState<Dish | null>(null);
+  const [selectedDish, setSelectedDish] = useState<Dish | null>(
+    data[today] || null
+  );
   const [trainProgress, setTrainProgress] = useState(0);
 
   useEffect(() => {
-    setTodayDish(data[today] || null);
-
     const interval = setInterval(() => {
       setTrainProgress((prev) => Math.min(prev + 1, 30));
     }, 20);
 
     return () => clearInterval(interval);
-  }, [today]);
+  }, []);
 
-  if (!todayDish) {
-    return <p>Aucun plat disponible pour aujourd&apos;hui.</p>;
-  }
-
-  const encartWidth = 300;
-  const encartHeight = 200;
+  const handleClick = (date: string) => {
+    setSelectedDish(data[date]);
+    setTrainProgress(0); // Réinitialiser le train pour chaque clic
+  };
 
   const viewportWidth = window.innerWidth;
   const viewportHeight = window.innerHeight;
 
+  const encartWidth = 300;
+  const encartHeight = 200;
+
   const leftPosition =
-    todayDish.coordinates.x * (viewportWidth / 100) +
+    selectedDish?.coordinates.x * (viewportWidth / 100) +
     trainProgress * (viewportWidth / 100);
-  const topPosition = todayDish.coordinates.y * (viewportHeight / 100);
+  const topPosition = selectedDish?.coordinates.y * (viewportHeight / 100) || 0;
 
   const isTooFarRight = leftPosition + encartWidth / 2 > viewportWidth;
   const isTooFarLeft = leftPosition - encartWidth / 2 < 0;
@@ -228,24 +229,24 @@ const TestPage = () => {
   const isTooHigh = topPosition - encartHeight / 2 < 0;
 
   const adjustedLeft = isTooFarRight
-    ? viewportWidth - encartWidth - 10 // 10px de marge
+    ? viewportWidth - encartWidth - 10
     : isTooFarLeft
-    ? 10 // 10px de marge
+    ? 10
     : leftPosition - encartWidth / 2;
 
   const adjustedTop = isTooLow
-    ? viewportHeight - encartHeight - 10 // 10px de marge
+    ? viewportHeight - encartHeight - 10
     : isTooHigh
-    ? 10 // 10px de marge
+    ? 10
     : topPosition - encartHeight / 2;
 
   return (
     <div
       style={{
         position: "relative",
-        width: "90%",
+        width: "100%",
         height: "100vh",
-        margin: "auto",
+        overflow: "hidden",
       }}
     >
       {/* Carte du monde */}
@@ -262,102 +263,112 @@ const TestPage = () => {
           borderRadius: "8px",
         }}
       >
-        {/* Pointeur initial */}
-        <div
-          style={{
-            position: "absolute",
-            top: `${todayDish.coordinates.y}%`,
-            left: `${todayDish.coordinates.x}%`,
-            transform: "translate(-50%, -50%)",
-            zIndex: 10,
-          }}
-        >
+        {/* Points pour chaque plat */}
+        {Object.entries(data).map(([date, dish]) => (
           <div
+            key={date}
+            onClick={() => handleClick(date)}
             style={{
-              backgroundColor: "darkred",
-              width: "20px",
-              height: "20px",
-              borderRadius: "50%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              color: "white",
-              fontWeight: "bold",
+              position: "absolute",
+              top: `${dish.coordinates.y}%`,
+              left: `${dish.coordinates.x}%`,
+              transform: "translate(-50%, -50%)",
+              zIndex: 5,
+              cursor: "pointer",
             }}
           >
-            🎄
+            <div
+              style={{
+                backgroundColor: date === today ? "darkgreen" : "darkred",
+                width: "20px",
+                height: "20px",
+                borderRadius: "50%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                color: "white",
+                fontWeight: "bold",
+              }}
+            >
+              {date === today ? "🎄" : "🍴"}
+            </div>
           </div>
-        </div>
+        ))}
 
         {/* Train animé */}
-        {trainProgress > 0 && (
+        {trainProgress > 0 && selectedDish && (
           <>
             <div
               style={{
                 position: "absolute",
-                top: `${todayDish.coordinates.y}%`,
-                left: `${todayDish.coordinates.x}%`,
+                top: `${selectedDish.coordinates.y}%`,
+                left: `${selectedDish.coordinates.x}%`,
                 width: `${trainProgress}vw`,
                 height: "5px",
                 background:
                   "linear-gradient(to right, #ff0000, #ffd700, #ff0000)",
                 borderRadius: "3px",
                 boxShadow: "0 0 10px rgba(255, 138, 0, 0.5)",
+                zIndex: 9,
                 transformOrigin: "left center",
                 transition: "width 0.1s ease-out",
               }}
             />
-            {/* Encart au bout du train */}
+            {/* Encart d'informations */}
             {trainProgress === 30 && (
-              <>
-                <div
+              <div
+                style={{
+                  position: "absolute",
+                  top: `${adjustedTop}px`,
+                  left: `${adjustedLeft}px`,
+                  width: `${encartWidth}px`,
+                  padding: "15px",
+                  backgroundColor: "rgba(255, 255, 255, 0.9)",
+                  borderRadius: "10px",
+                  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                  zIndex: 10,
+                  textAlign: "center",
+                  animation: "fadeIn 0.5s ease-in-out",
+                }}
+              >
+                <img
+                  src={selectedDish.image}
+                  alt={selectedDish.dish}
                   style={{
-                    position: "absolute",
-                    top: `${adjustedTop}px`,
-                    left: `${adjustedLeft}px`,
-                    width: `${encartWidth}px`,
-                    padding: "15px",
-                    backgroundColor: "rgba(255, 255, 255, 0.9)",
-                    borderRadius: "10px",
-                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                    textAlign: "center",
-                    animation: "fadeIn 0.5s ease-in-out",
+                    width: "100%",
+                    height: "150px",
+                    borderRadius: "8px",
+                    objectFit: "cover",
+                    marginBottom: "10px",
+                  }}
+                />
+                <h2
+                  style={{
+                    color: "#ff0000",
+                    fontSize: "1.5rem",
+                    margin: "5px 0",
                   }}
                 >
-                  <img
-                    src={todayDish.image}
-                    alt={todayDish.dish}
-                    style={{
-                      width: "100%",
-                      height: "150px",
-                      borderRadius: "8px",
-                      objectFit: "cover",
-                      marginBottom: "10px",
-                    }}
-                  />
-                  <h2
-                    style={{
-                      color: "#ff0000",
-                      fontSize: "1.5rem",
-                      margin: "5px 0",
-                    }}
-                  >
-                    {todayDish.dish}
-                  </h2>
-                  <p
-                    style={{ fontSize: "12px", margin: "5px 0", color: "#555" }}
-                  >
-                    Origine : <strong>{todayDish.country}</strong>
-                  </p>
-                  <p style={{ fontSize: "12px", color: "#555" }}>
-                    {todayDish.description}
-                  </p>
-                </div>
-              </>
+                  {selectedDish.dish}
+                </h2>
+                <p
+                  style={{
+                    fontSize: "12px",
+                    margin: "5px 0",
+                    color: "#555",
+                  }}
+                >
+                  Origine : <strong>{selectedDish.country}</strong>
+                </p>
+                <p style={{ fontSize: "12px", color: "#555" }}>
+                  {selectedDish.description}
+                </p>
+              </div>
             )}
           </>
         )}
       </div>
+
       {/* Styles pour animations */}
       <style jsx>{`
         @keyframes fadeIn {
@@ -368,7 +379,7 @@ const TestPage = () => {
             opacity: 1;
           }
         }
-      `}</style>{" "}
+      `}</style>
     </div>
   );
 };
