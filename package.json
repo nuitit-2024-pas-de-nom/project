@@ -15,8 +15,11 @@
     "react": "^19.0.0-rc.1",
     "react-dom": "^19.0.0-rc.1",
     "react-leaflet": "^5.0.0-rc.1"
+    "@tailwindcss/typography": "^0.5.15",
+    "prisma": "^6.0.1",
   },
   "devDependencies": {
+    "@prisma/client": "^6.0.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

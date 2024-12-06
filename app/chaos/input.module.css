@@ -1,0 +1,13 @@
+.inputContainer {
+  position: relative;
+  width: max-content;
+  height: max-content;
+}
+
+.input {
+  position: relative;
+  background-color: transparent;
+  border: none;
+  color: red;
+  font-weight: bold;
+}
