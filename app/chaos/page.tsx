@@ -12,7 +12,10 @@ import { useState } from "react";
 export default function Chaos() {
   const [validated, setValidated] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (
+    e: React.FormEvent<HTMLFormElement>
+      | React.MouseEvent<HTMLButtonElement>
+  ) => {
     e.preventDefault();
     setValidated(!validated);
   };
