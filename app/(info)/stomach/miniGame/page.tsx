@@ -5,7 +5,7 @@ export default function Page() {
       <div className="p-4">
 
         <p>GAME</p>
-        <Link href={"/heart"} className={"btn btn-primary"}>Désoxygénation</Link>
+        <Link href={"/stomach"} className={"btn btn-primary"}>Acidification</Link>
       </div>    
     );
   }
