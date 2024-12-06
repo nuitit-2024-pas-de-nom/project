@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Header from "../components/Header";
 interface Dish {
   country: string;
   dish: string;
@@ -13,7 +14,7 @@ type Data = Record<string, Dish>;
 const TestPage = () => {
   const today = new Date().toISOString().split("T")[0];
   const data: Data = {
-    "2024-12-06": {
+    "2024-12-05": {
       country: "France",
       dish: "Dinde aux marrons",
       description:
@@ -21,16 +22,16 @@ const TestPage = () => {
       image: "https://assets.afcdn.com/recipe/20181109/83747_w600.jpg",
       coordinates: { x: 48, y: 35 },
     },
-    "2024-12-07": {
+    "2024-12-08": {
       country: "Whoville",
       dish: "Le Grinch",
       description:
-        "Oh oh oh ! Le Grinch est là pour vous gâcher Noël avec un peu d'humour.",
+        "Oh oh oh ! Le Grinch est là pour vous gâcher Noël avec un peu d'humour. Il a mangé tout notre plaaaaat non",
       image:
         "https://i.pinimg.com/originals/67/ed/62/67ed628059f6f50dcfd29bb2b788224d.gif",
       coordinates: { x: 50, y: 50 },
     },
-    "2024-12-25": {
+    "2024-12-07": {
       country: "Italie",
       dish: "Panettone",
       description:
@@ -39,16 +40,15 @@ const TestPage = () => {
         "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg/1200px-Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg",
       coordinates: { x: 50, y: 40 },
     },
-    "2024-12-08": {
+    "2024-12-06": {
       country: "Germany",
       dish: "Stollen",
       description:
         "Un pain aux fruits riche saupoudré de sucre glace, une tradition allemande.",
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg/1200px-Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg",
+      image: "https://assets.afcdn.com/recipe/20201210/116273_w600.png",
       coordinates: { x: 50, y: 33 },
     },
-    "2024-12-05": {
+    "2024-12-09": {
       country: "Japan",
       dish: "Christmas Cake",
       description:
@@ -64,7 +64,7 @@ const TestPage = () => {
         "Pâte de maïs cuite à la vapeur, garnie de viande, un délice mexicain.",
       image:
         "https://i.pinimg.com/originals/67/ed/62/67ed628059f6f50dcfd29bb2b788224d.gif",
-      coordinates: { x: 40, y: 70 },
+      coordinates: { x: 20, y: 50 },
     },
     "2024-12-11": {
       country: "Sweden",
@@ -72,7 +72,7 @@ const TestPage = () => {
       description:
         "Un buffet de Noël suédois avec hareng mariné, boulettes de viande et plus.",
       image:
-        "https://i.pinimg.com/originals/67/ed/62/67ed628059f6f50dcfd29bb2b788224d.gif",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg/1200px-Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg",
       coordinates: { x: 65, y: 35 },
     },
     "2024-12-12": {
@@ -81,8 +81,8 @@ const TestPage = () => {
       description:
         "Un dessert à base de meringue garni de fruits frais, un classique australien.",
       image:
-        "https://i.pinimg.com/originals/67/ed/62/67ed628059f6f50dcfd29bb2b788224d.gif",
-      coordinates: { x: 30, y: 90 },
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg/1200px-Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg",
+      coordinates: { x: 30, y: 65 },
     },
     "2024-12-13": {
       country: "Russia",
@@ -90,7 +90,7 @@ const TestPage = () => {
       description:
         "Une bouillie de blé sucrée avec du miel et des graines de pavot.",
       image:
-        "https://i.pinimg.com/originals/67/ed/62/67ed628059f6f50dcfd29bb2b788224d.gif",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg/1200px-Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg",
       coordinates: { x: 75, y: 30 },
     },
     "2024-12-14": {
@@ -99,7 +99,7 @@ const TestPage = () => {
       description:
         "Un dessert dense aux fruits secs, flambé au brandy avant d'être servi.",
       image:
-        "https://i.pinimg.com/originals/67/ed/62/67ed628059f6f50dcfd29bb2b788224d.gif",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg/1200px-Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg",
       coordinates: { x: 55, y: 40 },
     },
     "2024-12-15": {
@@ -117,7 +117,7 @@ const TestPage = () => {
       description:
         "Des pâtisseries en forme d'étoile garnies de confiture de prune, un classique finlandais.",
       image:
-        "https://i.pinimg.com/originals/67/ed/62/67ed628059f6f50dcfd29bb2b788224d.gif",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg/1200px-Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg",
       coordinates: { x: 60, y: 35 },
     },
     "2024-12-17": {
@@ -126,8 +126,8 @@ const TestPage = () => {
       description:
         "Une épaule de porc rôtie aux épices, souvent servie avec du riz et des légumes.",
       image:
-        "https://i.pinimg.com/originals/67/ed/62/67ed628059f6f50dcfd29bb2b788224d.gif",
-      coordinates: { x: 30, y: 70 },
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg/1200px-Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg",
+      coordinates: { x: 30, y: 65 },
     },
     "2024-12-18": {
       country: "Norway",
@@ -135,7 +135,7 @@ const TestPage = () => {
       description:
         "Poitrine de porc croustillante, un incontournable du dîner de Noël norvégien.",
       image:
-        "https://i.pinimg.com/originals/67/ed/62/67ed628059f6f50dcfd29bb2b788224d.gif",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg/1200px-Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg",
       coordinates: { x: 55, y: 30 },
     },
     "2024-12-19": {
@@ -144,8 +144,8 @@ const TestPage = () => {
       description:
         "Un gâteau de riz cuit dans des feuilles de bananier, sucré et moelleux.",
       image:
-        "https://i.pinimg.com/originals/67/ed/62/67ed628059f6f50dcfd29bb2b788224d.gif",
-      coordinates: { x: 80, y: 70 },
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg/1200px-Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg",
+      coordinates: { x: 80, y: 55 },
     },
     "2024-12-20": {
       country: "South Africa",
@@ -153,8 +153,8 @@ const TestPage = () => {
       description:
         "Un pudding sucré et spongieux souvent servi avec une crème anglaise.",
       image:
-        "https://i.pinimg.com/originals/67/ed/62/67ed628059f6f50dcfd29bb2b788224d.gif",
-      coordinates: { x: 20, y: 85 },
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg/1200px-Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg",
+      coordinates: { x: 55, y: 65 },
     },
     "2024-12-21": {
       country: "Canada",
@@ -162,8 +162,8 @@ const TestPage = () => {
       description:
         "Une tarte de viande épicée, une tradition des fêtes au Québec.",
       image:
-        "https://i.pinimg.com/originals/67/ed/62/67ed628059f6f50dcfd29bb2b788224d.gif",
-      coordinates: { x: 40, y: 40 },
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg/1200px-Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg",
+      coordinates: { x: 30, y: 35 },
     },
     "2024-12-22": {
       country: "Greece",
@@ -171,7 +171,7 @@ const TestPage = () => {
       description:
         "Des biscuits au miel et aux noix, un délice grec pour Noël.",
       image:
-        "https://i.pinimg.com/originals/67/ed/62/67ed628059f6f50dcfd29bb2b788224d.gif",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg/1200px-Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg",
       coordinates: { x: 70, y: 50 },
     },
     "2024-12-23": {
@@ -180,7 +180,7 @@ const TestPage = () => {
       description:
         "Agneau fumé servi avec des pommes de terre et des petits pois.",
       image:
-        "https://i.pinimg.com/originals/67/ed/62/67ed628059f6f50dcfd29bb2b788224d.gif",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg/1200px-Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg",
       coordinates: { x: 50, y: 20 },
     },
     "2024-12-24": {
@@ -189,7 +189,7 @@ const TestPage = () => {
       description:
         "Un gâteau au chocolat riche garni d'une couche d'abricot, une spécialité autrichienne.",
       image:
-        "https://i.pinimg.com/originals/67/ed/62/67ed628059f6f50dcfd29bb2b788224d.gif",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg/1200px-Panettone_-_Nicolettone_2017_-_IMG_7092_%2831752504105%29.jpg",
       coordinates: { x: 60, y: 50 },
     },
   };
@@ -200,6 +200,12 @@ const TestPage = () => {
   const [trainProgress, setTrainProgress] = useState(0);
   const [viewportWidth, setViewportWidth] = useState(0);
   const [viewportHeight, setViewportHeight] = useState(0);
+  const [tooltip, setTooltip] = useState<{
+    date: string | null;
+    x: number;
+    y: number;
+  }>({ date: null, x: 0, y: 0 });
+
   useEffect(() => {
     const interval = setInterval(() => {
       setTrainProgress((prev) => Math.min(prev + 1, 30));
@@ -207,6 +213,14 @@ const TestPage = () => {
 
     return () => clearInterval(interval);
   }, []);
+
+  const handleMouseEnter = (date: string, x: number, y: number) => {
+    setTooltip({ date, x, y });
+  };
+
+  const handleMouseLeave = () => {
+    setTooltip({ date: null, x: 0, y: 0 });
+  };
 
   const handleClick = (date: string) => {
     setSelectedDish(data[date]);
@@ -250,12 +264,10 @@ const TestPage = () => {
     ? 10
     : leftPosition - encartWidth / 2;
 
-  const adjustedTop = isTooLow
-    ? viewportHeight - encartHeight - 10
-    : isTooHigh
-    ? 10
-    : topPosition - encartHeight / 2;
-
+  const adjustedTop = Math.min(
+    Math.max(10, topPosition - encartHeight / 2), // Évite de dépasser le haut
+    viewportHeight - encartHeight - 10 // Évite de dépasser le bas
+  );
   return (
     <div
       style={{
@@ -284,6 +296,14 @@ const TestPage = () => {
           <div
             key={date}
             onClick={() => handleClick(date)}
+            onMouseEnter={() =>
+              handleMouseEnter(
+                date,
+                dish.coordinates.x * (viewportWidth / 100),
+                dish.coordinates.y * (viewportHeight / 100)
+              )
+            }
+            onMouseLeave={handleMouseLeave}
             style={{
               position: "absolute",
               top: `${dish.coordinates.y}%`,
@@ -311,7 +331,27 @@ const TestPage = () => {
           </div>
         ))}
 
-        {/* Train animé */}
+        {/* Tooltip */}
+        {tooltip.date && (
+          <div
+            style={{
+              position: "absolute",
+              top: `${tooltip.y - 30}px`,
+              left: `${tooltip.x + 10}px`,
+              background: "rgba(0, 0, 0, 0.8)",
+              color: "white",
+              padding: "5px 10px",
+              borderRadius: "5px",
+              fontSize: "12px",
+              pointerEvents: "none",
+              zIndex: 10,
+            }}
+          >
+            {tooltip.date}
+          </div>
+        )}
+
+        {/* Train animé et encart d'informations */}
         {trainProgress > 0 && selectedDish && (
           <>
             <div
@@ -330,7 +370,7 @@ const TestPage = () => {
                 transition: "width 0.1s ease-out",
               }}
             />
-            {/* Encart d'informations */}
+            {/* Encart */}
             {trainProgress === 30 && (
               <div
                 style={{
@@ -345,6 +385,7 @@ const TestPage = () => {
                   zIndex: 10,
                   textAlign: "center",
                   animation: "fadeIn 0.5s ease-in-out",
+                  pointerEvents: "none",
                 }}
               >
                 <img
@@ -384,7 +425,6 @@ const TestPage = () => {
           </>
         )}
       </div>
-
       {/* Styles pour animations */}
       <style jsx>{`
         @keyframes fadeIn {
