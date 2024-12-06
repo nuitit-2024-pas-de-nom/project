@@ -13,6 +13,7 @@ type Data = Record<string, Dish>;
 
 const TestPage = () => {
   const today = new Date().toISOString().split("T")[0];
+
   const data: Data = {
     "2024-12-05": {
       country: "France",
@@ -437,6 +438,10 @@ const TestPage = () => {
           }
         }
       `}</style>
+      <audio id={'1'} autoPlay={true} controls={true}>
+        <source src={"/grinch/grinch.mp3"} type={"audio/mpeg"}/>
+        Your browser does not support the audio element.
+      </audio>
     </div>
   );
 };
