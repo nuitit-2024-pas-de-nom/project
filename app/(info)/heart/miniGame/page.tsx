@@ -5,56 +5,116 @@ import Link from "next/link";
 
 export default function Page() {
   const [score, setScore] = useState(0);
-  const [message, setMessage] = useState("");
+  const [oxygenLevel, setOxygenLevel] = useState(100); // Niveau d'oxygène de Billy
   const [isPlaying, setIsPlaying] = useState(false);
-  const [timeRemaining, setTimeRemaining] = useState(5); // Durée du jeu (en secondes)
-  const lastClickTime = useRef(0);
+  const [message, setMessage] = useState("");
+  const [billyPosition, setBillyPosition] = useState({ x: 50, y: 50 }); // Position de Billy
 
-  const targetInterval = 500; // Temps cible entre les clics (en ms)
-  const tolerance = 200; // Tolérance sur le rythme (en ms)
+  const oxygenBubblePosition = useRef({ x: 0, y: 0 }); // Position de la bulle d'oxygène
+  const pollutionPositions = useRef([]); // Liste des positions de la pollution
+  const pollutionFrequency = useRef(3000); // Fréquence d'apparition de la pollution en ms
+  const timerRef = useRef(null);
+  const pollutionTimerRef = useRef(null);
 
+  const moveSpeed = 5; // Vitesse de mouvement de Billy
+
+  // Fonction pour démarrer le jeu
   const startGame = () => {
     setScore(0);
+    setOxygenLevel(100);
     setMessage("");
     setIsPlaying(true);
-    setTimeRemaining(5);
-    lastClickTime.current = 0;
 
-    // Décompte du temps
-    const timer = setInterval(() => {
-      setTimeRemaining((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          setIsPlaying(false);
-          setMessage("Temps écoulé ! Score final : " + score);
-        }
-        return prev - 1;
-      });
+    // Réinitialiser la position de Billy
+    setBillyPosition({ x: 50, y: 50 });
+
+    // Définir la position initiale des bulles d'oxygène et de pollution
+    randomizePositions();
+
+    // Timer pour l'oxygène
+    timerRef.current = setInterval(() => {
+      if (oxygenLevel <= 0) {
+        setIsPlaying(false);
+        setMessage("Game Over! Vous avez épuisé tout l'oxygène.");
+        clearInterval(timerRef.current);
+        clearInterval(pollutionTimerRef.current);
+      } else {
+        setOxygenLevel((prev) => prev - 0.1); // L'oxygène diminue progressivement
+      }
     }, 1000);
+
+    // Timer pour ajouter de la pollution régulièrement
+    pollutionTimerRef.current = setInterval(() => {
+      addPollution();
+    }, pollutionFrequency.current);
   };
 
-  const handleClick = () => {
-    if (!isPlaying) return;
+  // Générer des positions aléatoires pour les bulles d'oxygène et la pollution
+  const randomizePositions = () => {
+    oxygenBubblePosition.current = { x: Math.random() * 100, y: Math.random() * 100 };
+  };
 
-    const now = Date.now();
-    if (lastClickTime.current === 0) {
-      lastClickTime.current = now;
-      setScore(score + 1);
-    } else {
-      const interval = now - lastClickTime.current;
-      if (
-        interval >= targetInterval - tolerance &&
-        interval <= targetInterval + tolerance
-      ) {
-        setScore(score + 1);
-        setMessage("Bon rythme !");
-      } else {
-        setMessage("Trop rapide ou trop lent !");
-        setIsPlaying(false);
-      }
-      lastClickTime.current = now;
+  // Ajouter de la pollution
+  const addPollution = () => {
+    const newPollution = { x: Math.random() * 100, y: Math.random() * 100 };
+    pollutionPositions.current.push(newPollution);
+    if (pollutionPositions.current.length > 10) {
+      pollutionPositions.current.shift(); // Limiter le nombre de pollutions visibles à 10
     }
   };
+
+  // Gérer les déplacements de Billy avec les touches directionnelles
+  const moveBilly = (direction) => {
+    if (!isPlaying) return;
+
+    setBillyPosition((prev) => {
+      let newX = prev.x;
+      let newY = prev.y;
+
+      if (direction === "left" && newX > 0) newX -= moveSpeed;
+      if (direction === "right" && newX < 100) newX += moveSpeed;
+      if (direction === "up" && newY > 0) newY -= moveSpeed;
+      if (direction === "down" && newY < 100) newY += moveSpeed;
+
+      // Vérifier si Billy a touché la bulle d'oxygène
+      if (
+        Math.abs(newX - oxygenBubblePosition.current.x) < 5 &&
+        Math.abs(newY - oxygenBubblePosition.current.y) < 5
+      ) {
+        setScore((prev) => prev + 1);
+        setOxygenLevel((prev) => Math.min(prev + 5, 100)); // Regénère un peu d'oxygène
+        randomizePositions(); // Générer une nouvelle position pour la bulle d'oxygène
+      }
+
+      // Vérifier si Billy a touché la pollution
+      pollutionPositions.current.forEach((pollution) => {
+        if (
+          Math.abs(newX - pollution.x) < 5 &&
+          Math.abs(newY - pollution.y) < 5
+        ) {
+          setOxygenLevel((prev) => Math.max(prev - 10, 0)); // Perdre de l'oxygène si on touche la pollution
+        }
+      });
+
+      return { x: newX, y: newY };
+    });
+  };
+
+  useEffect(() => {
+    // Ajouter un écouteur d'événements pour les touches directionnelles
+    const handleKeyDown = (e) => {
+      if (e.key === "ArrowLeft") moveBilly("left");
+      if (e.key === "ArrowRight") moveBilly("right");
+      if (e.key === "ArrowUp") moveBilly("up");
+      if (e.key === "ArrowDown") moveBilly("down");
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isPlaying]);
 
   return (
     <div className="p-4 flex flex-col items-center">
@@ -62,11 +122,8 @@ export default function Page() {
         Désoxygénation
       </Link>
 
-      <h1 className="text-2xl font-bold">Cliquez au bon rythme !</h1>
-      <p className="text-gray-600">
-        Essayez de cliquer sur le carré toutes les 0.5 secondes pendant 5
-        secondes.
-      </p>
+      <h1 className="text-2xl font-bold">Désoxygénation : Sauvez Billy !</h1>
+      <p className="text-gray-600">Collectez des bulles d'oxygène et évitez la pollution !</p>
 
       {!isPlaying && (
         <button
@@ -79,19 +136,38 @@ export default function Page() {
 
       {isPlaying && (
         <div
-          onClick={handleClick}
-          className="bg-blue-500 w-32 h-32 mt-6 flex items-center justify-center text-white text-xl font-bold cursor-pointer"
+          className="relative w-[400px] h-[400px] bg-blue-200 border-4 border-black mt-6"
         >
-          Clic !
+          <div
+            className="absolute bg-red-500 w-5 h-5 rounded-full"
+            style={{
+              top: `${billyPosition.y}%`,
+              left: `${billyPosition.x}%`,
+            }}
+          ></div>
+          <div
+            className="absolute bg-green-500 w-5 h-5 rounded-full"
+            style={{
+              top: `${oxygenBubblePosition.current.y}%`,
+              left: `${oxygenBubblePosition.current.x}%`,
+            }}
+          ></div>
+          {pollutionPositions.current.map((pollution, index) => (
+            <div
+              key={index}
+              className="absolute bg-gray-500 w-5 h-5 rounded-full"
+              style={{
+                top: `${pollution.y}%`,
+                left: `${pollution.x}%`,
+              }}
+            ></div>
+          ))}
         </div>
       )}
 
       <p className="text-lg mt-4">Score : {score}</p>
+      <p className="text-blue-500 mt-2">Niveau d'oxygène : {oxygenLevel.toFixed(1)}%</p>
       <p className="text-red-500 mt-2">{message}</p>
-
-      <p className="text-gray-500 mt-2">
-        Temps restant : {isPlaying ? timeRemaining : 0} sec
-      </p>
     </div>
   );
 }
