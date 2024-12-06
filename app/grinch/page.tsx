@@ -408,6 +408,7 @@ const TestPage = () => {
                 >
                   {selectedDish.dish}
                 </h2>
+                <p>{Object.keys(data).find(key => data[key] === selectedDish)}</p>
                 <p
                   style={{
                     fontSize: "12px",
