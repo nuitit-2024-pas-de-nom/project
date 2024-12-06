@@ -21,12 +21,7 @@ export default function Input({
 }: InputProps) {
   return (
     <div className={styles.inputContainer}>
-      <Image
-        src={image ? image : inputImage}
-        alt="inputImage"
-        layout="fill"
-        objectFit="cover"
-      />
+      <Image src={image ? image : inputImage} alt="inputImage" layout="fill" />
       <input
         className={styles.input}
         style={{ width: width, height: height }}
