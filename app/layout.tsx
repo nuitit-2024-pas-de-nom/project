@@ -30,14 +30,10 @@ export default function RootLayout({
 
   return (
     <html lang="fr" data-theme="theme-change">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Header title={metadata.title.toString()}/>
-        <main className={"main-content"}>
-          {children}
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <main>
+            {children}
         </main>
-        <Footer />
       </body>
     </html>
   );

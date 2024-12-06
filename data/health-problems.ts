@@ -6,7 +6,16 @@ export type HealthProblem = {
   icon: string;
   position: string;
   endpoint: string;
+  margin: string,
+  height: number
+  image: any
 }
+
+import Heart from "@/assets/img/heart.png"
+import Stomach from "@/assets/img/stomac.png"
+import Head from "@/assets/img/head.png"
+import Blood from "@/assets/img/blood.png"
+import Virus from "@/assets/img/virus.png"
 
 export const healthProblems: HealthProblem[] =
 [
@@ -17,7 +26,10 @@ export const healthProblems: HealthProblem[] =
     solutions:"Pour réduire la désoxygénation des océans, il est crucial de limiter le réchauffement climatique en réduisant les émissions de gaz à effet de serre. Il faut également limiter les excès de nutriments issus de l'agriculture et des eaux usées. Restaurer les écosystèmes côtiers comme les mangroves et les herbiers marins peut également aider à maintenir un équilibre écologique. Enfin, une gestion durable des océans, soutenue par des politiques internationales, est essentielle pour protéger la vie marine.",
     icon:"heart.png",
     position: "heart",
-    endpoint: "heart"
+    endpoint: "heart",
+    margin: "0 0 136px 24px",
+    height: 64,
+    image: Heart
   },
   {
     title:"Acidification",
@@ -27,6 +39,9 @@ export const healthProblems: HealthProblem[] =
     icon:"stomach.png",
     position: "stomach",
     endpoint: "stomach",
+    margin: "0",
+    height: 64,
+    image: Stomach
   },
   {
     title:"Stratification",
@@ -35,7 +50,10 @@ export const healthProblems: HealthProblem[] =
     solutions:"Pour réduire la stratification des océans, il est essentiel de limiter le réchauffement des eaux de surface, principalement causé par le changement climatique. Cela passe par la réduction des émissions de gaz à effet de serre, notamment le dioxyde de carbone, afin d'éviter l'augmentation des températures marines.",
     icon:"headache.png",
     position: "head",
-    endpoint: "head"
+    endpoint: "head",
+    margin: "0 25px 585px 0",
+    height: 48,
+    image: Head
   },
   {
     title:"Mauvaise circulation",
@@ -44,7 +62,10 @@ export const healthProblems: HealthProblem[] =
     solutions:"Pour réduire l'impact de la perturbation de la circulation océanique, il est essentiel de limiter les émissions de gaz à effet de serre afin de ralentir la fonte des calottes glaciaires et les changements dans les précipitations. En réduisant la température de la planète, on prévient l'excès d'eau douce qui dilue les océans. De plus, des efforts pour protéger les écosystèmes marins, comme la réduction de la pollution, peuvent aider à maintenir la santé des océans",
     icon:"blood.png",
     position: "left_arm",
-    endpoint: "blood"
+    endpoint: "blood",
+    margin: "24px 225px 0 0",
+    height: 48,
+    image: Blood,
   },
   {
     title:"Pollution des eaux",
@@ -53,6 +74,9 @@ export const healthProblems: HealthProblem[] =
     solutions:"Organiser des campagnes de nettoyage des plages et des fonds marins pour réduire la pollution. Interdire les plastiques à usage unique. Développer des infrastructures de recyclage plus efficaces pour éviter que les plastiques ne finissent dans les océans. Encourager l’utilisation de matériaux biodégradables ou réutilisables",
     icon:"virus.png",
     position: "right_arm",
-    endpoint: "virus"
+    endpoint: "virus",
+    margin: "0 0 75px 160px",
+    height: 64,
+    image: Virus
   }
 ]
