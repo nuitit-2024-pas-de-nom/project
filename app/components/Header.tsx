@@ -11,7 +11,9 @@ export default function Header(headerProps: HeaderProps) {
   return (
     <header className="bg-primary-500 text-primary-50">
       <h1>
-        <Link href="/">{headerProps.title}</Link>
+        <Link href="/">
+          {headerProps.title ? headerProps.title : "Sauvez Billy"}
+        </Link>
       </h1>
       <nav>
         <ul className="menu menu-vertical lg:menu-horizontal bg-base-200 rounded-box">
