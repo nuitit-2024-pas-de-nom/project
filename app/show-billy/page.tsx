@@ -4,11 +4,9 @@ export default function show() {
     return (
         <div>
             <h1>show</h1>
-            <Link href={"/heart"} className={"btn btn-primary"}>Heart</Link>
-            <Link href={"/liver"} className={"btn btn-primary"}>Liver</Link>
-            <Link href={"/zeub"} className={"btn btn-primary"}>Zeub</Link>
-            <Link href={"/head"} className={"btn btn-primary"}>Head</Link>
-
+            <Link href={"/info/heart"} className={"btn btn-primary"}>Heart</Link>
+            <Link href={"/info/stomach"} className={"btn btn-primary"}>Liver</Link>
+            <Link href={"/info/head"} className={"btn btn-primary"}>Zeub</Link>
         </div>
     )
 }

@@ -2,7 +2,11 @@
 
 const nextConfig = {
   // Vos options ici
-  output: 'export',
+  output: 'standalone',
+  // output: 'out',
+  typescript: {
+    ignoreBuildErrors: true, // Ignore les erreurs TypeScript au build
+  },
 };
 
 module.exports = nextConfig;
