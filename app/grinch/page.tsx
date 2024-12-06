@@ -198,7 +198,8 @@ const TestPage = () => {
     data[today] || null
   );
   const [trainProgress, setTrainProgress] = useState(0);
-
+  const [viewportWidth, setViewportWidth] = useState(0);
+  const [viewportHeight, setViewportHeight] = useState(0);
   useEffect(() => {
     const interval = setInterval(() => {
       setTrainProgress((prev) => Math.min(prev + 1, 30));
@@ -209,11 +210,26 @@ const TestPage = () => {
 
   const handleClick = (date: string) => {
     setSelectedDish(data[date]);
-    setTrainProgress(0); // Réinitialiser le train pour chaque clic
+    setTrainProgress(0);
   };
 
-  const viewportWidth = window.innerWidth;
-  const viewportHeight = window.innerHeight;
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setViewportWidth(window.innerWidth);
+      setViewportHeight(window.innerHeight);
+
+      const handleResize = () => {
+        setViewportWidth(window.innerWidth);
+        setViewportHeight(window.innerHeight);
+      };
+
+      window.addEventListener("resize", handleResize);
+
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }
+  }, []);
 
   const encartWidth = 300;
   const encartHeight = 200;
