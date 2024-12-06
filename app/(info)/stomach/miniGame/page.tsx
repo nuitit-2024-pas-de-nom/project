@@ -7,21 +7,46 @@ export default function Page() {
   const questions = [
     {
       id: 1,
-      title: "Associez les fonctions des reins",
-      items: ["Élimination des déchets", "Régulation de la glycémie", "Production d'urine"],
-      correct: ["Élimination des déchets", "Production d'urine"],
+      title: "Associez les actions écologiques",
+      items: [
+        "Utilisation des transports publics",
+        "Déréglementation des énergies fossiles",
+        "Réduction des déchets plastiques",
+        "Utilisation d'énergies renouvelables",
+        "Éviter le gaspillage alimentaire",
+      ],
+      correct: [
+        "Utilisation des transports publics",
+        "Utilisation d'énergies renouvelables",
+        "Réduction des déchets plastiques",
+        "Éviter le gaspillage alimentaire",
+      ],
     },
     {
       id: 2,
-      title: "Associez les substances filtrées par les reins",
-      items: ["Urée", "Globules rouges", "Acide urique"],
-      correct: ["Urée", "Acide urique"],
+      title: "Associez les effets du CO₂ sur l'océan",
+      items: [
+        "Acidification des eaux",
+        "Réchauffement de l'océan",
+        "Prolifération des coraux",
+        "Perte de biodiversité marine",
+      ],
+      correct: ["Acidification des eaux", "Perte de biodiversité marine"],
     },
     {
       id: 3,
-      title: "Associez les maladies affectant les reins",
-      items: ["Insuffisance rénale", "Cirrhose", "Calculs rénaux"],
-      correct: ["Insuffisance rénale", "Calculs rénaux"],
+      title: "Associez les solutions contre l'acidification",
+      items: [
+        "Réduire l'usage de combustibles fossiles",
+        "Plantation de forêts",
+        "Utilisation des énergies renouvelables",
+        "Reforestation des mangroves",
+      ],
+      correct: [
+        "Réduire l'usage de combustibles fossiles",
+        "Utilisation des énergies renouvelables",
+        "Reforestation des mangroves",
+      ],
     },
   ];
 
@@ -59,7 +84,7 @@ export default function Page() {
       <Link href={"/stomach"} className="btn btn-primary mb-4">
         Acidification
       </Link>
-      <h1 className="text-2xl font-bold">Drag & Drop Game</h1>
+      <h1 className="text-2xl font-bold">Jeu : Réduire les émissions de CO₂</h1>
 
       {!isFinished ? (
         <>
@@ -68,7 +93,7 @@ export default function Page() {
           <div className="mt-6 flex gap-4">
             {/* Drag items */}
             <div className="w-1/2 p-4 bg-blue-100 rounded">
-              <h2 className="text-lg font-bold mb-2">Options</h2>
+              <h2 className="text-lg font-bold mb-2">Actions possibles</h2>
               <ul className="space-y-2">
                 {questions[currentQuestion].items.map((item) => (
                   <li
@@ -89,9 +114,9 @@ export default function Page() {
               onDrop={handleDrop}
               className="w-1/2 p-4 bg-green-100 rounded flex flex-col items-center justify-center"
             >
-              <h2 className="text-lg font-bold mb-2">Drop Zone</h2>
+              <h2 className="text-lg font-bold mb-2">Zone de sélection</h2>
               <div className="min-h-[100px] w-full bg-green-200 rounded flex items-center justify-center">
-                {answers.length === 0 && <p>Glissez les bonnes réponses ici</p>}
+                {answers.length === 0 && <p>Glissez les bonnes solutions ici</p>}
                 <ul className="space-y-2">
                   {answers.map((answer, index) => (
                     <li
