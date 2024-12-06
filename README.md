@@ -1,36 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nuit de l'informatique 2024 - Equipe PAS DE NOM
 
-## Getting Started
+## Membres de l'équipe PAS DE NOM
 
-First, run the development server:
+- BECHLEM Robin
+- EHRHARD Mael
+- HEIMBURGER Sarah
+- HETT Alizée
+- MUNCH Axel
+- OFFERLE Alexandre
+- SAUL Baptiste
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Défis relevés
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Défi de la nuit 2024
+- IA en Action
+- Ubisoft Bordeaux : Mashup Gaming
+- Bad UI Challenge : Concevez la Pire Interface Utilisateur Possible
+- Mets tes binocles!
+- Osez défier le GRINCH !!!
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Lien du projet
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Application : [https://nuitii-pas-de-nom.netlify.app/](https://nuitii-pas-de-nom.netlify.app/)
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Dépôt GitHub : [https://github.com/nuitit-2024-pas-de-nom/project](https://github.com/nuitit-2024-pas-de-nom/project)
