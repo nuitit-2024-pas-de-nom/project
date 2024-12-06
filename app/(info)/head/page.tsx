@@ -1,21 +1,51 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 
 export default function Page() {
-    return (
-      <div className="p-4">
-        <Link href={"/show-billy"} className={"btn btn-primary"}>Go Back</Link>
-  
-        <h1 className="text-2xl font-bold mt-4">Stratification</h1>
-  
-        <article className="bg-blue-500 text-white p-4 rounded mt-4 shadow">
-        Le réchauffement de la surface des océans accentue la stratification, car l'eau chaude, moins dense, reste en surface tandis que l'eau froide et dense demeure en profondeur. Ce phénomène bloque les échanges entre ces couches, limitant la circulation des gaz et des nutriments essentiels. Les effets sont directs et multiples:  appauvrissement en oxygène, réduction de la production biologique. Les espèces marines, comme les poissons et les mammifères, souffrent de la raréfaction des ressources et de l’habitat.
-        </article>
+  const [isFlipped, setIsFlipped] = useState(false); // État pour gérer le flip
 
-        <article className="bg-blue-500 text-white p-4 rounded mt-4 shadow">
-        Pour réduire la stratification des océans, il est essentiel de limiter le réchauffement des eaux de surface, principalement causé par le changement climatique. Cela passe par la réduction des émissions de gaz à effet de serre, notamment le dioxyde de carbone, afin d'éviter l'augmentation des températures marines.
-        </article>
-  
-        <Link href ="/head/miniGame" className="btn bg-green-500 text-white hover:bg-green-600 mt-4">Play</Link>
+  return (
+    <div className="p-4 flex flex-col items-center">
+      {/* Bouton de retour */}
+      <Link href={"/show-billy"} className="btn btn-primary">
+        Go Back
+      </Link>
+
+      {/* Titre */}
+      <h1 className="text-2xl font-bold mt-4">Stratification</h1>
+
+      {/* Carte avec effet de flip */}
+      <div
+        className={`flip-card w-64 h-64 mt-6 ${isFlipped ? "flipped" : ""}`} // w-64 pour une largeur plus étroite
+        onClick={() => setIsFlipped(!isFlipped)} // Toggle flip au clic
+      >
+        <div className="flip-card-inner">
+          {/* Face avant */}
+          <div className="flip-card-front bg-blue-500 text-white p-4 rounded shadow flex flex-col justify-center">
+            <h2 className="text-lg font-bold mb-2">Impact de la stratification</h2>
+            <p>
+              Le réchauffement des océans limite les échanges entre les couches d'eau, réduisant l'oxygène et les
+              nutriments disponibles.
+            </p>
+          </div>
+
+          {/* Face arrière */}
+          <div className="flip-card-back bg-green-500 text-white p-4 rounded shadow flex flex-col justify-center">
+            <h2 className="text-lg font-bold mb-2">Solutions</h2>
+            <p>
+              Réduire les émissions de gaz à effet de serre pour limiter le réchauffement des eaux de surface et protéger
+              les écosystèmes marins.
+            </p>
+          </div>
+        </div>
       </div>
-    );
-  }
+
+      {/* Bouton Play */}
+      <Link href="/head/miniGame" className="btn bg-green-500 text-white hover:bg-green-600 mt-4">
+        Play
+      </Link>
+    </div>
+  );
+}
