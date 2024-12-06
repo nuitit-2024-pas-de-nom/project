@@ -1,11 +1,9 @@
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div>
-
-      <h1>Nuiti</h1>
-        <button className={"btn btn-primary"}>Sauver Billy</button>
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <Link className={"btn btn-primary"} href={"/show-billy"}>Show Billy</Link>
     </div>
-
   );
 }

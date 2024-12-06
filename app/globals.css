@@ -2,3 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+header, footer {
+  flex-shrink: 0;
+}
+
+.main-content {
+  flex-grow: 1;
+  background-image: url('/images/bg-base.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0;
+}

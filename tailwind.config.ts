@@ -15,7 +15,7 @@ export default {
       daisyui,
   ],
   daisyui: {
-    themes: ["dark", "light", "business"],
+    themes: ["dark", "light", "business", "aqua", "autumn"],
   }
 
 } satisfies Config;
