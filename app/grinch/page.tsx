@@ -200,6 +200,12 @@ const TestPage = () => {
   const [trainProgress, setTrainProgress] = useState(0);
   const [viewportWidth, setViewportWidth] = useState(0);
   const [viewportHeight, setViewportHeight] = useState(0);
+  const [tooltip, setTooltip] = useState<{
+    date: string | null;
+    x: number;
+    y: number;
+  }>({ date: null, x: 0, y: 0 });
+
   useEffect(() => {
     const interval = setInterval(() => {
       setTrainProgress((prev) => Math.min(prev + 1, 30));
@@ -207,6 +213,14 @@ const TestPage = () => {
 
     return () => clearInterval(interval);
   }, []);
+
+  const handleMouseEnter = (date: string, x: number, y: number) => {
+    setTooltip({ date, x, y });
+  };
+
+  const handleMouseLeave = () => {
+    setTooltip({ date: null, x: 0, y: 0 });
+  };
 
   const handleClick = (date: string) => {
     setSelectedDish(data[date]);
@@ -255,7 +269,6 @@ const TestPage = () => {
     : isTooHigh
     ? 10
     : topPosition - encartHeight / 2;
-
   return (
     <div
       style={{
@@ -284,6 +297,14 @@ const TestPage = () => {
           <div
             key={date}
             onClick={() => handleClick(date)}
+            onMouseEnter={() =>
+              handleMouseEnter(
+                date,
+                dish.coordinates.x * (viewportWidth / 100),
+                dish.coordinates.y * (viewportHeight / 100)
+              )
+            }
+            onMouseLeave={handleMouseLeave}
             style={{
               position: "absolute",
               top: `${dish.coordinates.y}%`,
@@ -311,7 +332,27 @@ const TestPage = () => {
           </div>
         ))}
 
-        {/* Train animé */}
+        {/* Tooltip */}
+        {tooltip.date && (
+          <div
+            style={{
+              position: "absolute",
+              top: `${tooltip.y - 30}px`,
+              left: `${tooltip.x + 10}px`,
+              background: "rgba(0, 0, 0, 0.8)",
+              color: "white",
+              padding: "5px 10px",
+              borderRadius: "5px",
+              fontSize: "12px",
+              pointerEvents: "none",
+              zIndex: 10,
+            }}
+          >
+            {tooltip.date}
+          </div>
+        )}
+
+        {/* Train animé et encart d'informations */}
         {trainProgress > 0 && selectedDish && (
           <>
             <div
@@ -330,7 +371,7 @@ const TestPage = () => {
                 transition: "width 0.1s ease-out",
               }}
             />
-            {/* Encart d'informations */}
+            {/* Encart */}
             {trainProgress === 30 && (
               <div
                 style={{
@@ -345,6 +386,7 @@ const TestPage = () => {
                   zIndex: 10,
                   textAlign: "center",
                   animation: "fadeIn 0.5s ease-in-out",
+                  pointerEvents: "none",
                 }}
               >
                 <img
@@ -384,7 +426,6 @@ const TestPage = () => {
           </>
         )}
       </div>
-
       {/* Styles pour animations */}
       <style jsx>{`
         @keyframes fadeIn {
