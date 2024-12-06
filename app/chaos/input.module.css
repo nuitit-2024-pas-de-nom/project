@@ -1,19 +1,11 @@
 .inputContainer {
   position: relative;
   width: max-content;
-}
-
-.backgroundImage {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
+  height: max-content;
 }
 
 .input {
   position: relative;
-  /* width: 250px;
-  height: 50px; */
   background-color: transparent;
   border: none;
   color: red;

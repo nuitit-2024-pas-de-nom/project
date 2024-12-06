@@ -1,0 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=Barrio&display=swap");
+
+.BarrioRegular {
+  font-family: "Barrio", system-ui, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.Container {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+  /* margin: 0 auto; */
+  background-color: navy;
+  border: 7px double lime;
+  padding: 150px;
+  /* position: relative; */
+}
+
+.Heading {
+  text-decoration: underline;
+  /* text-align: left; */
+  font-size: 48px;
+  color: hotpink;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.FormGroup {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 5px;
+  position: relative;
+}
+
+.LabelRight {
+  justify-content: flex-end;
+  margin-left: 50px;
+}
+
+.LabelLeft {
+  justify-content: flex-start;
+  transform: translateX(-100px);
+}
+
+.Label {
+  text-align: left;
+  position: relative;
+}
+
+.ScrollInput {
+  width: 150px;
+  overflow: scroll;
+}
+
+.SubmitButtonWrapperWrapper {
+  position: absolute;
+  bottom: 25px;
+  left: 300px;
+  transform: translate(0, 0);
+  transition: all 0.25s;
+}
+
+.SubmitButtonWrapper {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 300px;
+  height: 80px;
+  position: relative;
+}
+.SubmitButtonWrapperWrapper:hover {
+  /* top: 20%;
+    right: 20%; */
+  transform: translate(200px, -250px);
+}
+
+.SubmitButton {
+  background-color: transparent;
+  color: yellow;
+  text-shadow: 5px 5px #00ff00;
+  font-size: 25px;
+  border: none;
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+}
+
+.BackgroundWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.ImageContainer {
+  position: relative;
+  width: max-content;
+  height: max-content;
+}
+
+.Error {
+  color: red;
+  font-size: 120px;
+  position: relative;
+  padding: 100px;
+  background-color: chartreuse;
+}
