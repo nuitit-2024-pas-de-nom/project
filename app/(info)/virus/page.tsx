@@ -26,6 +26,7 @@ export default function Page() {
               La pollution plastique affecte gravement la faune et la flore marines, altérant les écosystèmes et les
               chaînes alimentaires.
             </p>
+            <p className="text-gray-500">(Cliquer pour révéler)</p>
           </div>
 
           {/* Face arrière */}

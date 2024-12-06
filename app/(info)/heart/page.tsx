@@ -25,6 +25,7 @@ export default function Page() {
               La prolifération de phytoplancton consomme beaucoup d'oxygène, créant des zones mortes dans les eaux
               profondes.
             </p>
+            <p className="text-gray-500">(Cliquer pour révéler)</p>
           </div>
           <div className="flip-card-back bg-green-500 text-white p-4 rounded shadow flex flex-col justify-center">
             <h2 className="text-lg font-bold mb-2">Solutions</h2>

@@ -29,6 +29,7 @@ export default function Page() {
               La circulation océanique est menacée par les apports d’eau douce issus de la fonte des calottes glaciaires
               et des précipitations accrues.
             </p>
+            <p className="text-gray-500">(Cliquer pour révéler)</p>
           </div>
 
           {/* Face arrière */}

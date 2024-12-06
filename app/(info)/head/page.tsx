@@ -29,6 +29,7 @@ export default function Page() {
               Le réchauffement des océans limite les échanges entre les couches d'eau, réduisant l'oxygène et les
               nutriments disponibles.
             </p>
+            <p className="text-gray-500">(Cliquer pour révéler)</p>
           </div>
 
           {/* Face arrière */}
